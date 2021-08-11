@@ -1,24 +1,35 @@
 class RpgsController < ApplicationController
     
     def index
-        @count = session[:count] ||= 0
-        @farm = session[:farm]
-        @cave = session[:cave]
-        @house = session[:house]
-        @casino = session[:casino]
-    end  
+        session[:count] ||= 0
+        @count = session[:count]
+        session[:output] ||= []
+        @output = session[:output]
+    end
 
     def handler
-        flash[:success] = "u did it"
-        session[:farm] = session[:count] + rand(10..20)
-        session[:cave] = session[:count] + rand(5..10)
-        session[:house] = session[:count] + rand(2..5)
-        session[:casino] = session[:count] + rand(-50..50)
-        redirect_to '/'
+        timestamp = Time.now
+        if params[:source] == 'farm'
+            count = rand(10..20)
+        elsif params[:source] == 'cave'
+            count = rand(5..20)
+        elsif params[:source] == 'house'
+            count = rand(2..5)
+        elsif params[:source] == 'casino'
+            count = rand(-50..50)
+        end
+        if count > 0
+            session[:output] << "Earned #{count} GOLDS from the #{params[:source]}! YEEEEET!!1 (#{timestamp.strftime('%Y/%m/%d %l:%M %P')})"
+        else
+            session[:output] << "Entered a casino and lost #{count} GOLDS. Bummer. (#{timestamp.strftime('%Y/%m/%d %l:%M %P')})"
+        end
+
+        session[:count] += count
+        redirect_to index
     end
 
-    def reloader
-        render index
-    end
+    # def reloader
+    #     render index
+    # end
 
 end
