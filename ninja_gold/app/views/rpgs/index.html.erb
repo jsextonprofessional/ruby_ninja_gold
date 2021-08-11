@@ -1,0 +1,35 @@
+<form action="/" method="POST">
+<label for="ur_gold">Your Gold: <%= @count%></label>
+</form><br><br>
+<form action="/handler/" method="POST">
+<h2>FARM</h2>
+<h3>(earns 10-20 golds)</h3>
+<input type="submit" value="Find Gold!">
+<input type="hidden" name="session[:farm]">
+</form>
+<form action="/handler/" method="POST">
+<h2>CAVE</h2>
+<h3>(earns 5-10 golds)</h3>
+<input type="submit" value="Find Gold!">
+<input type="hidden" name="session[:cave]">
+</form>
+<form action="/handler/" method="POST">
+<h2>HOUSE</h2>
+<h3>(earns 2-5 golds)</h3>
+<input type="submit" value="Find Gold!">
+<input type="hidden" name="session[:house]">
+</form>
+<form action="/handler/" method="POST">
+<h2>CASINO</h2>
+<h3>(earns/costs 0-50 golds)</h3>
+<input type="submit" value="Find Gold!">
+<input type="hidden" name="session[:casino]">
+</form><br><br>
+<p>Activities: </p><br>
+<div>
+<h1><%= flash[:success] %></h1>
+<h2><%= @farm%></h2>
+<h2><%= @cave%></h2>
+<h2><%= @house%></h2>
+<h2><%= @casino%></h2>
+</div>
