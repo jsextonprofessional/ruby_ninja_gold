@@ -1,10 +1,10 @@
 class RpgsController < ApplicationController
     
     def index
-        session[:count] ||= 0
         @count = session[:count]
-        session[:output] ||= []
+        session[:count] ||= 0
         @output = session[:output]
+        session[:output] ||= []
     end
 
     def handler
@@ -23,13 +23,7 @@ class RpgsController < ApplicationController
         else
             session[:output] << "Entered a casino and lost #{count} GOLDS. Bummer. (#{timestamp.strftime('%Y/%m/%d %l:%M %P')})"
         end
-
         session[:count] += count
-        redirect_to index
+        redirect_to '/'
     end
-
-    # def reloader
-    #     render index
-    # end
-
 end
